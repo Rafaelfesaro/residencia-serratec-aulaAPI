@@ -89,6 +89,14 @@ public class Livro {
 	public void setEditora(Editora editora) {
 		this.editora = editora;
 	}
+
+	public Emprestimo getEmprestimo() {
+		return emprestimo;
+	}
+
+	public void setEmprestimo(Emprestimo emprestimo) {
+		this.emprestimo = emprestimo;
+	}
 	
 	
 
