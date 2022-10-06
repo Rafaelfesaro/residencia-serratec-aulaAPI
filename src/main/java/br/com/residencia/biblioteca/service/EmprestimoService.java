@@ -14,7 +14,7 @@ public class EmprestimoService {
 	@Autowired
 	EmprestimoRepository emprestimoRepository;
 	
-	public List<Emprestimo> getAllLivro(){
+	public List<Emprestimo> getAllEmprestimos(){
 		return emprestimoRepository.findAll();
 	}
 	
@@ -30,9 +30,8 @@ public class EmprestimoService {
 		
 		Emprestimo emprestimoExistenteNoBanco = getEmprestimoById(id);
 		
-//		emprestimoExistenteNoBanco.setCodigoEmprestimo(emprestimo.getCodigoEmprestimo());
-//		emprestimoExistenteNoBanco.setNumeroMatriculaAluno(emprestimo.getNumeroMatriculaAluno());
-//		emprestimoExistenteNoBanco.setCodigoLivro(emprestimo.getCodigoLivro());
+//		emprestimoExistenteNoBanco.setAluno(Aluno);
+//		emprestimoExistenteNoBanco.setLivro(Livro);
 		emprestimoExistenteNoBanco.setDataEmprestimo(emprestimo.getDataEmprestimo());
 		emprestimoExistenteNoBanco.setDataEntrega(emprestimo.getDataEntrega());
 		emprestimoExistenteNoBanco.setValorEmprestimo(emprestimo.getValorEmprestimo());
