@@ -45,7 +45,7 @@ public class Aluno {
 	@Column(name = "cidade")
 	private String cidade;
 	
-	@OneToMany(mappedBy = "emprestimo")
+	@OneToMany(mappedBy = "aluno")
 	private Set<Emprestimo> emprestimos;
 
 	

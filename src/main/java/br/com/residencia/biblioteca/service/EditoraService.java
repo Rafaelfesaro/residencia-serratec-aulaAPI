@@ -18,7 +18,8 @@ EditoraRepository editoraRepository;
 	}
 	
 	public Editora getEditoraById(Integer id) {
-		return editoraRepository.findById(id).get();
+		//return editoraRepository.findById(id).get();
+		return editoraRepository.findById(id).orElse(null);
 	}
 	
 	public Editora saveEditora(Editora editora) {
@@ -36,8 +37,17 @@ EditoraRepository editoraRepository;
 	}
 	
 	public Editora deleteEditora(Integer id) {
-		editoraRepository.deleteById(id);
+//		if(null != getEditoraById(id))
+			editoraRepository.deleteById(id);
+		
 		return getEditoraById(id);
 	}
 	
+	public Boolean deleteEditoraBool (Integer id) {
+		if(null != getEditoraById(id)) {
+			editoraRepository.deleteById(id);
+			return true;
+		}
+		return false;
+	}
 }

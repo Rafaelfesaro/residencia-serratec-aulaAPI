@@ -1,6 +1,7 @@
 package br.com.residencia.biblioteca.entity;
 
 import java.time.Instant;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,38 +10,38 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "livros")
 public class Livro {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
+
 	@Column(name = "codigolivro")
 	private Integer codigoLivro;
-	
+
 	@Column(name = "nomelivro")
 	private String nomeLivro;
-	
+
 	@Column(name = "nomeautor")
 	private String nomeAutor;
-	
+
 	@Column(name = "datalancamento")
 	private Instant dataLancamento;
-	
+
 	@Column(name = "codigoisbn")
 	private Integer codigoIsbn;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "codigoeditora", referencedColumnName = "codigoeditora")
 	private Editora editora;
-	
-	@OneToOne (mappedBy="livro")
-	private Emprestimo emprestimo;
-	
+
+//	@OneToOne (mappedBy="livro")
+	@OneToMany(mappedBy = "livro")
+	private Set<Emprestimo> emprestimos;
 
 	public Integer getCodigoLivro() {
 		return codigoLivro;
@@ -90,14 +91,12 @@ public class Livro {
 		this.editora = editora;
 	}
 
-	public Emprestimo getEmprestimo() {
-		return emprestimo;
+	public Set<Emprestimo> getEmprestimos() {
+		return emprestimos;
 	}
 
-	public void setEmprestimo(Emprestimo emprestimo) {
-		this.emprestimo = emprestimo;
+	public void setEmprestimos(Set<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
 	}
-	
-	
 
 }
