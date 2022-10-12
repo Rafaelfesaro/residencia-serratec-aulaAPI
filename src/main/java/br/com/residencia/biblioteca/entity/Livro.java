@@ -13,13 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "codigoLivro")
 @Entity
 @Table(name = "livros")
 public class Livro {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	@Column(name = "codigolivro")
 	private Integer codigoLivro;
 
@@ -39,7 +41,6 @@ public class Livro {
 	@JoinColumn(name = "codigoeditora", referencedColumnName = "codigoeditora")
 	private Editora editora;
 
-//	@OneToOne (mappedBy="livro")
 	@OneToMany(mappedBy = "livro")
 	private Set<Emprestimo> emprestimos;
 
@@ -98,5 +99,4 @@ public class Livro {
 	public void setEmprestimos(Set<Emprestimo> emprestimos) {
 		this.emprestimos = emprestimos;
 	}
-
 }

@@ -31,7 +31,6 @@ public class LivroService {
 	public Livro updateLivro(Livro livro, Integer id) {
 		
 		Livro livroExistenteNoBanco = getLivroById(id);
-		//livroExistenteNoBanco = livro;
 		
 		livroExistenteNoBanco.setNomeLivro(livro.getNomeLivro());
 		livroExistenteNoBanco.setNomeAutor(livro.getNomeAutor());
@@ -46,11 +45,6 @@ public class LivroService {
 		livroRepository.deleteById(id);
 		return getLivroById(id);
 		
-		//Poderia ser usado tambem!
-		//if(null != getAlunoById(id))
-			//return false;
-		//else
-			//return true;
 	}
 
 }

@@ -1,5 +1,7 @@
 package br.com.residencia.biblioteca.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,40 +22,46 @@ import br.com.residencia.biblioteca.service.EmprestimoService;
 public class EmprestimoController {
 	@Autowired
 	EmprestimoService emprestimoService;
+	
+	@GetMapping
+	public ResponseEntity<List<Emprestimo>> getAllEmprestimos(){
+		return new ResponseEntity<>(emprestimoService.getAllEmprestimos(),
+				HttpStatus.OK);
+	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Emprestimo> getEmprestimoById( @PathVariable Integer id) {
+	public ResponseEntity<Emprestimo> getEmprestimoById(@PathVariable Integer id) {
 		Emprestimo emprestimo = emprestimoService.getEmprestimoById(id);
 		if(null != emprestimo)
-			return new ResponseEntity<>(emprestimo, 
-				HttpStatus.OK);
+			return new ResponseEntity<>(emprestimo,
+					HttpStatus.OK);
 		else
-			return new ResponseEntity<>(emprestimo, 
+			return new ResponseEntity<>(emprestimo,
 					HttpStatus.NOT_FOUND);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Emprestimo> saveEmprestimo(@RequestBody Emprestimo emprestimo){
-	return new ResponseEntity<>(emprestimoService.saveEmprestimo(emprestimo), 
-			HttpStatus.CREATED);
+	public ResponseEntity<Emprestimo> saveEmprestimo(@RequestBody Emprestimo emprestimo) {
+		return new ResponseEntity<>(emprestimoService.saveEmprestimo(emprestimo),
+				HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Emprestimo> updateEmprestimo(@RequestBody Emprestimo emprestimo,
+	public ResponseEntity<Emprestimo> updateEmprestimo(@RequestBody Emprestimo emprestimo, 
 			@PathVariable Integer id){
-	return new ResponseEntity<>(emprestimoService.updateEmprestimo(emprestimo, id), 
-			HttpStatus.OK);
+		return new ResponseEntity<>(emprestimoService.updateEmprestimo(emprestimo, id),
+				HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Emprestimo> deleteEmprestimo(@PathVariable Integer id){
+	public ResponseEntity<Emprestimo> deleteEmprestimo(@PathVariable Integer id) {
 		Emprestimo emprestimo = emprestimoService.getEmprestimoById(id);
 		if(null == emprestimo)
 			return new ResponseEntity<>(emprestimo,
 					HttpStatus.NOT_FOUND);
 		else
-			return new ResponseEntity<>(emprestimoService.deleteEmprestimo(id), 
+			return new ResponseEntity<>(emprestimoService.deleteEmprestimo(id),
 					HttpStatus.OK);
 	}
-	
+
 }

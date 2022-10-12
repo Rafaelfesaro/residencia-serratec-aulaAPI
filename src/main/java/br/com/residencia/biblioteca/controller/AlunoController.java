@@ -24,49 +24,39 @@ public class AlunoController {
 	AlunoService alunoService;
 	
 	@GetMapping
-	public ResponseEntity<List<Aluno>> getAllAlunos() {
-		return new ResponseEntity<>(alunoService.getAllAlunos(), 
+	public ResponseEntity<List<Aluno>> getAllAlunos(){
+		return new ResponseEntity<>(alunoService.getAllAlunos(),
 				HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Aluno> getAlunoById( @PathVariable Integer id) {
+	public ResponseEntity<Aluno> getAlunoById(@PathVariable Integer id) {
 		Aluno aluno = alunoService.getAlunoById(id);
 		if(null != aluno)
-			return new ResponseEntity<>(aluno, 
-				HttpStatus.OK);
+			return new ResponseEntity<>(aluno,
+					HttpStatus.OK);
 		else
-			return new ResponseEntity<>(aluno, 
+			return new ResponseEntity<>(aluno,
 					HttpStatus.NOT_FOUND);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Aluno> saveAluno(@RequestBody Aluno aluno){
-	return new ResponseEntity<>(alunoService.saveAluno(aluno), 
-			HttpStatus.CREATED);
+	public ResponseEntity<Aluno> saveAluno(@RequestBody Aluno aluno) {
+		return new ResponseEntity<>(alunoService.saveAluno(aluno),
+				HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Aluno> updateAluno(@RequestBody Aluno aluno,
+	public ResponseEntity<Aluno> updateAluno(@RequestBody Aluno aluno, 
 			@PathVariable Integer id){
-	return new ResponseEntity<>(alunoService.updateAluno(aluno, id), 
-			HttpStatus.OK);
+		return new ResponseEntity<>(alunoService.updateAluno(aluno, id),
+				HttpStatus.OK);
 	}
-	
-//	@DeleteMapping("/{id}")
-//	public ResponseEntity<Aluno> deleteAluno(@PathVariable Integer id){
-//	return new ResponseEntity<>(alunoService.deleteAluno(id), 
-//			HttpStatus.OK);
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Aluno> deleteAluno(@PathVariable Integer id){
-		Aluno aluno = alunoService.getAlunoById(id);
-		if(null == aluno)
-			return new ResponseEntity<>(aluno,
-					HttpStatus.NOT_FOUND);
-		else
-			return new ResponseEntity<>(alunoService.deleteAluno(id), 
-					HttpStatus.OK);
+	public ResponseEntity<Aluno> deleteAluno(@PathVariable Integer id) {
+		return new ResponseEntity<>(alunoService.deleteAluno(id),
+				HttpStatus.OK);
 	}
-	
+
 }

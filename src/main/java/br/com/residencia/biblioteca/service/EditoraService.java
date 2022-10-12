@@ -10,15 +10,14 @@ import br.com.residencia.biblioteca.repository.EditoraRepository;
 
 @Service
 public class EditoraService {
-@Autowired
-EditoraRepository editoraRepository;
+	@Autowired
+	EditoraRepository editoraRepository;
 	
 	public List<Editora> getAllEditoras(){
 		return editoraRepository.findAll();
 	}
 	
 	public Editora getEditoraById(Integer id) {
-		//return editoraRepository.findById(id).get();
 		return editoraRepository.findById(id).orElse(null);
 	}
 	
@@ -26,28 +25,21 @@ EditoraRepository editoraRepository;
 		return editoraRepository.save(editora);
 	}
 	
-	
 	public Editora updateEditora(Editora editora, Integer id) {
+		//Editora editoraExistenteNoBanco = editoraRepository.findById(id).get();
 		
 		Editora editoraExistenteNoBanco = getEditoraById(id);
-		
+
 		editoraExistenteNoBanco.setNome(editora.getNome());
 		
 		return editoraRepository.save(editoraExistenteNoBanco);
-	}
-	
-	public Editora deleteEditora(Integer id) {
-//		if(null != getEditoraById(id))
-			editoraRepository.deleteById(id);
 		
+		//return editoraRepository.save(editora);
+	}
+
+	public Editora deleteEditora(Integer id) {
+		editoraRepository.deleteById(id);
 		return getEditoraById(id);
 	}
-	
-	public Boolean deleteEditoraBool (Integer id) {
-		if(null != getEditoraById(id)) {
-			editoraRepository.deleteById(id);
-			return true;
-		}
-		return false;
-	}
+
 }

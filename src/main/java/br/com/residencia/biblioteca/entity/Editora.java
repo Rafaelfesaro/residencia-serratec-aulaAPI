@@ -20,7 +20,7 @@ public class Editora {
 
 	@Column(name = "nome")
 	private String nome;
-	
+
 	@OneToMany(mappedBy = "editora")
 	private Set<Livro> livros;
 
@@ -48,6 +48,4 @@ public class Editora {
 		this.livros = livros;
 	}
 
-	
-	
 }
