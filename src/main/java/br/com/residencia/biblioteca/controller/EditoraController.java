@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import br.com.residencia.biblioteca.entity.Editora;
 import br.com.residencia.biblioteca.service.EditoraService;
 
@@ -46,6 +45,7 @@ public class EditoraController {
 		return new ResponseEntity<>(editoraService.saveEditora(editora),
 				HttpStatus.CREATED);
 	}
+	
 	
 	
 	@PutMapping("/{id}")
