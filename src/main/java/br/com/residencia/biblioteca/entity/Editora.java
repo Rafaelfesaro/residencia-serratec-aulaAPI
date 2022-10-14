@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.com.residencia.biblioteca.dto.EditoraDTO;
+
 @Entity
 @Table(name = "editora")
 public class Editora {
@@ -23,6 +25,12 @@ public class Editora {
 
 	@OneToMany(mappedBy = "editora")
 	private Set<Livro> livros;
+	
+	public Editora(EditoraDTO editoraDTo) {
+		this.codigoEditora = editoraDTo.getCodigoEditora();
+		this.nome = EditoraDTO.getNome();
+	}
+	
 
 	public Integer getCodigoEditora() {
 		return codigoEditora;

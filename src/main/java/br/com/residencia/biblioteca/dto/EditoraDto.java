@@ -2,20 +2,19 @@ package br.com.residencia.biblioteca.dto;
 
 import br.com.residencia.biblioteca.entity.Editora;
 
-public class EditoraDto {
+public class EditoraDTO {
 	private Integer codigoEditora;
 	private String nome;
 	
-	public EditoraDto(Editora editora) {
+	
+	public EditoraDTO(Editora editora) {
 		this.codigoEditora = editora.getCodigoEditora();
 		this.nome = editora.getNome();
-		
 	}
-	public EditoraDto(Integer codigoEditora, String nome) {
+	public EditoraDTO(Integer codigoEditora, String nome) {
 		this.codigoEditora = codigoEditora;
 		this.nome = nome;
 	}
-	
 	public Integer getCodigoEditora() {
 		return codigoEditora;
 	}
