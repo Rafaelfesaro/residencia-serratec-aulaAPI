@@ -1,11 +1,15 @@
 package br.com.residencia.biblioteca.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import br.com.residencia.biblioteca.dto.ConsultaCnpjDTO;
 import br.com.residencia.biblioteca.dto.EditoraDTO;
 import br.com.residencia.biblioteca.dto.LivroDTO;
 import br.com.residencia.biblioteca.entity.Editora;
@@ -58,6 +62,18 @@ public class EditoraService {
 		return editoraRepository.save(editora);
 	}
 
+	
+	public Editora saveEditoraFromApi (String cnpj) {
+		ConsultaCnpjDTO consultaCnpjDTO = consultaCnpjApiExterna(cnpj);
+		
+		Editora editora = new Editora();
+		editora.setNome(consultaCnpjDTO.getNome());
+	
+		return editoraRepository.save(editora);
+	}
+	
+	
+	
 	public EditoraDTO saveEditoraDTO(EditoraDTO editoraDTO) {
 		Editora editora = toEntidade(editoraDTO);
 		Editora novaEditora = editoraRepository.save(editora);
@@ -114,6 +130,21 @@ public class EditoraService {
 	}
 
 	
+	public ConsultaCnpjDTO consultaCnpjApiExterna (String cnpj) {
+		RestTemplate restTemplate = new RestTemplate();
+		String uri = "https://receitaws.com.br/v1/cnpj/{cnpj}";
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("cnpj", cnpj);
+		
+		ConsultaCnpjDTO consultaCnpjDTO = restTemplate.getForObject(uri, 
+				ConsultaCnpjDTO.class , params);
+		
+		return consultaCnpjDTO;
+	}
+	
+	
+	
 	
 	 public List<EditoraDTO> getAllEditorasLivrosDTO(){ 
 		 List<Editora> listaEditora = editoraRepository.findAll(); 
@@ -137,6 +168,8 @@ public class EditoraService {
 		 } 
 		 return listaEditoraDTO; 
 	 }
+
+
 	
 	
 }

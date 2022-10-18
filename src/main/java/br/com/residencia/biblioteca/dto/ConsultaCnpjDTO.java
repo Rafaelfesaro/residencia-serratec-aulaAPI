@@ -11,6 +11,8 @@ public class ConsultaCnpjDTO {
 	private String motivo_situacao;
 	private String telefone;
 	private String email;
+	
+	
 	public String getSituação() {
 		return situação;
 	}
