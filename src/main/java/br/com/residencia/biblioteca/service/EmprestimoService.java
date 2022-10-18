@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.residencia.biblioteca.dto.EmprestimoDTO;
 import br.com.residencia.biblioteca.entity.Emprestimo;
 import br.com.residencia.biblioteca.repository.EmprestimoRepository;
 
@@ -32,7 +33,7 @@ public class EmprestimoService {
 		Emprestimo emprestimoExistenteNoBanco = getEmprestimoById(id);
 		
 //		emprestimoExistenteNoBanco.setCodigoEmprestimo(emprestimo.getCodigoEmprestimo());
-//		emprestimoExistenteNoBanco.setNumeroMatriculaAluno(emprestimo.getNumeroMatriculaAluno());
+//		emprestimoExistenteNoBanco.setNumeroMatriculaEmprestimo(emprestimo.getNumeroMatriculaEmprestimo());
 //		emprestimoExistenteNoBanco.setCodigoLivro(emprestimo.getCodigoLivro());
 		emprestimoExistenteNoBanco.setDataEmprestimo(emprestimo.getDataEmprestimo());
 		emprestimoExistenteNoBanco.setDataEntrega(emprestimo.getDataEntrega());
@@ -46,5 +47,49 @@ public class EmprestimoService {
 		return getEmprestimoById(id);
 	}
 
+	
+	public EmprestimoDTO saveEmprestimoDTO(EmprestimoDTO emprestimoDTO) {
+		Emprestimo emprestimo = toEntidade(emprestimoDTO);
+		Emprestimo novoEmprestimo = emprestimoRepository.save(emprestimo);
 
+		EmprestimoDTO emprestimoAtualizadoDTO = toDTO(novoEmprestimo);
+		return emprestimoAtualizadoDTO;
+	}
+	
+	public EmprestimoDTO updateEmprestimoDTO(EmprestimoDTO emprestimoDTO, Integer id) {
+		Emprestimo emprestimoExistenteNoBanco = getEmprestimoById(id);
+		EmprestimoDTO emprestimoAtualizadoDTO = new EmprestimoDTO();
+
+		if (emprestimoExistenteNoBanco != null) {
+
+			emprestimoExistenteNoBanco = toEntidade(emprestimoDTO);
+			Emprestimo emprestimoAtualizado = emprestimoRepository.save(emprestimoExistenteNoBanco);
+
+			emprestimoAtualizadoDTO = toDTO(emprestimoAtualizado);
+		}
+		return emprestimoAtualizadoDTO;
+	}
+	
+	
+	
+	private Emprestimo toEntidade (EmprestimoDTO emprestimoDTO) {
+		Emprestimo emprestimo = new Emprestimo();
+		
+		emprestimo.setDataEmprestimo(emprestimoDTO.getDataEmprestimo());
+		emprestimo.setDataEntrega(emprestimoDTO.getDataEntrega());
+		emprestimo.setValorEmprestimo(emprestimoDTO.getValorEmprestimo());
+		
+		return emprestimo;
+	}
+	
+	private EmprestimoDTO toDTO (Emprestimo emprestimo) {
+		EmprestimoDTO emprestimoDTO = new EmprestimoDTO();
+		
+		emprestimoDTO.setCodigoEmprestimo(emprestimo.getCodigoEmprestimo());
+		emprestimoDTO.setDataEmprestimo(emprestimo.getDataEmprestimo());
+		emprestimoDTO.setDataEntrega(emprestimo.getDataEntrega());
+		emprestimoDTO.setValorEmprestimo(emprestimo.getValorEmprestimo());
+		
+		return emprestimoDTO;
+	}
 }

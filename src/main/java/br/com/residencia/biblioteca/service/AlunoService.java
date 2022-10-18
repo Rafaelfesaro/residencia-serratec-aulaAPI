@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.residencia.biblioteca.dto.AlunoDTO;
 import br.com.residencia.biblioteca.entity.Aluno;
 import br.com.residencia.biblioteca.repository.AlunoRepository;
 
@@ -49,5 +50,58 @@ public class AlunoService {
 		return getAlunoById(id);
 	}
 	
+	
+	public AlunoDTO saveAlunoDTO(AlunoDTO alunoDTO) {
+		Aluno aluno = toEntidade(alunoDTO);
+		Aluno novoAluno = alunoRepository.save(aluno);
+
+		AlunoDTO alunoAtualizadoDTO = toDTO(novoAluno);
+		return alunoAtualizadoDTO;
+	}
+	
+	public AlunoDTO updateAlunoDTO(AlunoDTO alunoDTO, Integer id) {
+		Aluno alunoExistenteNoBanco = getAlunoById(id);
+		AlunoDTO alunoAtualizadoDTO = new AlunoDTO();
+
+		if (alunoExistenteNoBanco != null) {
+
+			alunoExistenteNoBanco = toEntidade(alunoDTO);
+			Aluno alunoAtualizado = alunoRepository.save(alunoExistenteNoBanco);
+
+			alunoAtualizadoDTO = toDTO(alunoAtualizado);
+		}
+		return alunoAtualizadoDTO;
+	}
+	
+	
+	private Aluno toEntidade (AlunoDTO alunoDTO) {
+		Aluno aluno = new Aluno();
+		
+		aluno.setBairro(alunoDTO.getBairro());
+		aluno.setCidade(alunoDTO.getCidade());
+		aluno.setComplemento(alunoDTO.getComplemento());
+		aluno.setCpf(alunoDTO.getCpf());
+		aluno.setDataNascimento(alunoDTO.getDataNascimento());
+		aluno.setLogradouro(alunoDTO.getLogradouro());
+		aluno.setNome(alunoDTO.getNome());
+		aluno.setNumeroLogradouro(alunoDTO.getNumeroLogradouro());
+
+		return aluno;
+	}
+	
+	private AlunoDTO toDTO(Aluno aluno) {
+		AlunoDTO alunoDTO = new AlunoDTO();
+		
+		alunoDTO.setBairro(aluno.getBairro());
+		alunoDTO.setCidade(aluno.getCidade());
+		alunoDTO.setComplemento(aluno.getComplemento());
+		alunoDTO.setCpf(aluno.getCpf());
+		alunoDTO.setDataNascimento(aluno.getDataNascimento());
+		alunoDTO.setLogradouro(aluno.getLogradouro());
+		alunoDTO.setNome(aluno.getNome());
+		alunoDTO.setNumeroLogradouro(aluno.getNumeroLogradouro());
+
+		return alunoDTO;
+	}
 	
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.residencia.biblioteca.dto.LivroDTO;
 import br.com.residencia.biblioteca.entity.Livro;
 import br.com.residencia.biblioteca.service.LivroService;
 
@@ -45,6 +46,24 @@ public class LivroController {
 		return new ResponseEntity<>(livroService.saveLivro(livro),
 				HttpStatus.CREATED);
 	}
+	
+	
+	
+	@PostMapping("/dto")
+	public ResponseEntity<LivroDTO> saveLivroDTO(@RequestBody LivroDTO livroDTO) {
+		return new ResponseEntity<>(livroService.saveLivroDTO(livroDTO),
+				HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/dto/{id}")
+	public ResponseEntity<LivroDTO> updateLivroDTO(@RequestBody LivroDTO livroDTO, 
+			@PathVariable Integer id){
+		return new ResponseEntity<>(livroService.updateLivroDTO(livroDTO, id),
+				HttpStatus.OK);
+	}
+	
+	
+	
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Livro> updateLivro(@RequestBody Livro livro, 
