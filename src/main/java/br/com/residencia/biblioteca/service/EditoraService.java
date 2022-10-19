@@ -87,8 +87,10 @@ public class EditoraService {
 		EditoraDTO editoraAtualizadaDTO = new EditoraDTO();
 
 		if (editoraExistenteNoBanco != null) {
-
+			
+			editoraDTO.setCodigoEditora(editoraExistenteNoBanco.getCodigoEditora());
 			editoraExistenteNoBanco = toEntidade(editoraDTO);
+			
 			Editora editoraAtualizada = editoraRepository.save(editoraExistenteNoBanco);
 
 			editoraAtualizadaDTO = toDTO(editoraAtualizada);
@@ -99,6 +101,7 @@ public class EditoraService {
 	private Editora toEntidade(EditoraDTO editoraDTO) {
 		Editora editora = new Editora();
 
+		editora.setCodigoEditora(editoraDTO.getCodigoEditora());
 		editora.setNome(editoraDTO.getNome());
 		return editora;
 	}
