@@ -66,14 +66,13 @@ public class EditoraController {
 
 	@GetMapping("/cnpj/{cnpj}")
 	public ResponseEntity<Editora> saveEditoraFromApi(@PathVariable String cnpj) {
-		return new ResponseEntity<>(editoraService.saveEditoraFromApi(cnpj), 
+		return new ResponseEntity<>(editoraService.saveEditoraFromApi(cnpj),
 				HttpStatus.CREATED);
 	}
 	
-	
-	@PostMapping("/cnpj/{cnpj}")
-	public ResponseEntity<Editora> saveEditora(@RequestBody Editora editora) {
-		return new ResponseEntity<>(editoraService.saveEditora(editora), 
+	@PostMapping("/cnpj/post")
+	public ResponseEntity<Editora> saveEditoraFromApiPost(@RequestBody String cnpj) {
+		return new ResponseEntity<>(editoraService.saveEditoraFromApi(cnpj),
 				HttpStatus.CREATED);
 	}
 	
